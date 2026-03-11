@@ -1,4 +1,4 @@
-# BeautyBridge — Sunmi Skincare
+# BeautyBridge
 
 > Plateforme B2B connectant les grossistes nigérians aux acheteurs européens.
 
