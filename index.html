@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sunmi Skincare — BeautyBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --choco:#3D1A0F;--choco-mid:#5C2D18;--terra:#C4622D;--terra-lt:#D4804E;
+  --terra-pale:#F5E8DC;--caramel:#B5803A;--nude:#E8C9A8;--nude-soft:#F2DEC8;
+  --cream:#FAF3EC;--cream-deep:#F2E8DA;--white:#FFFCF8;--bg:#F7F0E8;
+  --border:#E5D8C8;--border-dk:#D0C0A8;
+  --text:#1E0E05;--text2:#6B4530;--text3:#9E7260;--text4:#C4A888;
+  --green:#2E6B4F;--green-bg:#EAF3EE;--blue:#3D5A8A;--blue-bg:#EEF2FA;
+  --sh-xs:0 1px 4px rgba(61,26,15,.07);--sh-sm:0 2px 12px rgba(61,26,15,.10);
+  --sh:0 4px 24px rgba(61,26,15,.13);--sh-lg:0 12px 40px rgba(61,26,15,.17);
+  --r-sm:10px;--r:14px;--r-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+.phone-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:radial-gradient(ellipse at 30% 20%,#4A2010 0%,#1A0808 55%,#0D0403 100%);}
+.phone{width:393px;height:852px;background:var(--bg);border-radius:52px;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 0 0 11px #1C0C06,0 0 0 12px #3A1A0A,0 24px 80px rgba(0,0,0,.55);}
+.dyn-island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#1C0C06;border-radius:20px;z-index:200;}
+.sbar{height:56px;background:var(--white);display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 10px;flex-shrink:0;z-index:100;}
+.stime{font-size:15px;font-weight:700;color:var(--text);}
+.sicons{display:flex;gap:5px;font-size:13px;}
+
+.screen-wrap{flex:1;overflow:hidden;position:relative;}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;scrollbar-width:none;background:var(--bg);}
+.screen::-webkit-scrollbar{display:none;}
+.screen.active{display:flex;animation:sIn .3s cubic-bezier(.34,1.1,.64,1) both;}
+@keyframes sIn{from{opacity:0;transform:translateY(12px) scale(.98);}to{opacity:1;transform:none;}}
+
+.bnav{height:86px;background:var(--white);border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-around;padding:10px 0 0;flex-shrink:0;z-index:100;}
+.bi{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 6px 4px;cursor:pointer;border-radius:var(--r-sm);transition:all .2s;min-width:0;flex:1;}
+.bi.active{background:var(--nude-soft);}
+.bi-icon{font-size:20px;transition:transform .2s;}
+.bi.active .bi-icon{transform:scale(1.15) translateY(-1px);}
+.bi-label{font-size:9px;font-weight:600;color:var(--text4);}
+.bi.active .bi-label{color:var(--terra);}
+.bi-badge{position:absolute;top:2px;right:6px;width:16px;height:16px;background:var(--terra);color:white;font-size:9px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--white);}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .2s;border-radius:var(--r-sm);}
+.btn-primary{background:linear-gradient(135deg,var(--terra),var(--choco-mid));color:white;padding:13px 22px;font-size:14px;box-shadow:0 4px 14px rgba(196,98,45,.3);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(196,98,45,.38);}
+.btn-full{width:100%;}
+.btn-outline{background:transparent;color:var(--terra);border:1.5px solid var(--terra);padding:9px 16px;font-size:13px;}
+
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--choco);color:white;padding:11px 20px;border-radius:100px;font-size:13px;font-weight:600;white-space:nowrap;opacity:0;transition:all .3s;z-index:9999;pointer-events:none;box-shadow:var(--sh-lg);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── SUPPLIER HERO ── */
+.sup-hero{background:linear-gradient(155deg,var(--choco) 0%,var(--choco-mid) 45%,var(--terra) 100%);padding:16px 18px 64px;position:relative;overflow:hidden;flex-shrink:0;}
+.sh-deco{position:absolute;inset:0;background:radial-gradient(ellipse 90% 120% at 95% -10%,rgba(212,168,101,.25) 0%,transparent 55%);}
+.hero-curve{position:absolute;bottom:-2px;left:0;right:0;height:44px;background:var(--bg);border-radius:28px 28px 0 0;}
+.sh-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;margin-bottom:18px;}
+.back-btn{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:white;border:1px solid rgba(255,255,255,.2);}
+.lang-toggle{display:flex;gap:3px;background:rgba(0,0,0,.2);border-radius:100px;padding:3px;}
+.ltb{padding:4px 11px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;transition:all .2s;}
+.ltb.active{background:var(--terra);color:white;}
+.avatar-row{display:flex;align-items:center;gap:13px;position:relative;z-index:1;margin-bottom:14px;}
+.av{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,rgba(232,201,168,.3),rgba(196,98,45,.3));border:2px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.av-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:white;}
+.av-sub{font-size:12px;color:rgba(232,201,168,.6);margin-top:2px;}
+.av-badges{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;}
+.av-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12);}
+.stats-row-hero{display:flex;gap:8px;position:relative;z-index:1;}
+.sh-stat{flex:1;background:rgba(0,0,0,.18);border-radius:var(--r-sm);padding:9px;text-align:center;border:1px solid rgba(255,255,255,.07);}
+.shs-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:white;}
+.shs-key{font-size:9px;color:rgba(232,201,168,.5);margin-top:1px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+
+/* ── CATEGORY TABS ── */
+
+
+
+
+
+/* ── SUBCATEGORY ACCORDION ── */
+.cat-panel{display:none;padding:14px 18px 100px;flex-direction:column;gap:8px;}
+
+
+.sub-header{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .2s;box-shadow:var(--sh-xs);}
+.sub-header:hover{border-color:var(--terra-lt);}
+.sub-header.open{border-radius:var(--r) var(--r) 0 0;}
+.shl{display:flex;align-items:center;gap:10px;}
+.sh-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.sh-nm{font-size:13px;font-weight:700;color:var(--text);}
+.sh-ct{font-size:11px;color:var(--text3);margin-top:1px;}
+.sh-arr{font-size:14px;color:var(--text4);transition:transform .25s;}
+.sub-header.open .sh-arr{transform:rotate(90deg);}
+
+.sub-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);display:none;overflow:hidden;}
+.sub-body.open{display:block;}
+
+/* ── PRODUCT ROW ── */
+.prod-row{display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+.prod-row:last-child{border-bottom:none;}
+.prod-row:hover{background:var(--cream);}
+.pr-img{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+.pr-info{flex:1;min-width:0;}
+.pr-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:500;color:var(--text);line-height:1.25;}
+.pr-qty{font-size:11px;color:var(--text3);margin-top:1px;}
+.pr-kit{font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;margin-top:4px;display:inline-block;}
+.kit-w{background:#FFF0E8;color:#B85C20;}
+.kit-l{background:#E8F4FF;color:#2A6A9E;}
+.kit-r{background:#F0F8EC;color:#3A7A28;}
+.kit-s{background:var(--nude-soft);color:var(--choco);}
+.pr-right{text-align:right;flex-shrink:0;}
+.pr-price{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--terra);}
+.pr-naira{font-size:10px;color:var(--text4);margin-top:1px;}
+.pr-add{width:27px;height:27px;background:var(--terra);border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-size:17px;cursor:pointer;transition:all .2s;margin-top:5px;margin-left:auto;}
+.pr-add:hover{background:var(--choco-mid);transform:scale(1.1);}
+.pr-add.added{background:var(--green);font-size:13px;}
+
+/* ── CLOTHING GRID ── */
+
+
+
+
+
+
+
+
+
+
+
+
+/* ── CARGO SCREEN ── */
+.cargo-pad{padding:16px 18px 100px;display:flex;flex-direction:column;gap:16px;}
+.cargo-banner{background:linear-gradient(135deg,var(--choco),var(--choco-mid));border-radius:var(--r-lg);padding:20px;position:relative;overflow:hidden;}
+.cargo-banner::after{content:'✈️';position:absolute;right:14px;bottom:8px;font-size:50px;opacity:.15;}
+.cb-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:white;margin-bottom:4px;}
+.cb-sub{font-size:13px;color:rgba(232,201,168,.65);line-height:1.5;}
+.dest-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;}
+.dc-hd{padding:13px 16px;background:var(--cream-deep);border-bottom:1px solid var(--border);}
+.dc-hd-title{font-size:13px;font-weight:700;color:var(--text);}
+.dc-hd-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.dest-row{display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+.dest-row:last-child{border-bottom:none;}
+.dest-row:hover{background:var(--cream);}
+.dr-flag{font-size:24px;width:34px;text-align:center;flex-shrink:0;}
+.dr-main{flex:1;}
+.dr-country{font-size:13px;font-weight:700;color:var(--text);}
+.dr-detail{font-size:11px;color:var(--text3);margin-top:2px;}
+.dr-price{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--terra);flex-shrink:0;}
+.dr-arr{font-size:14px;color:var(--text4);margin-left:6px;}
+.cargo-note{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px;display:flex;gap:11px;}
+.cn-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.cn-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.cn-text{font-size:12px;color:var(--text3);line-height:1.6;}
+
+/* ── CART SCREEN ── */
+.cart-pad{padding:16px 18px 100px;display:flex;flex-direction:column;gap:14px;}
+.cart-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px;display:flex;align-items:center;gap:12px;}
+.ci-img{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+.ci-info{flex:1;}
+.ci-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:500;color:var(--text);}
+.ci-meta{font-size:11px;color:var(--text3);margin-top:2px;}
+.ci-price{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--terra);flex-shrink:0;}
+.ci-del{font-size:16px;color:var(--text4);cursor:pointer;padding:4px;margin-left:6px;}
+.ci-del:hover{color:var(--terra);}
+.cart-sum{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;}
+.csrow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:9px;}
+.csk{color:var(--text2);}
+.csv{font-weight:600;color:var(--text);}
+.cs-sep{height:1px;background:var(--border);margin:11px 0;}
+.cs-tot{display:flex;justify-content:space-between;align-items:center;}
+.cs-tl{font-size:14px;font-weight:700;color:var(--text);}
+.cs-tv{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--terra);}
+.cart-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:40px 20px;text-align:center;}
+.ce-icon{font-size:54px;opacity:.35;}
+.ce-txt{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text2);}
+.ce-sub{font-size:13px;color:var(--text3);line-height:1.5;}
+
+/* Topbar shared */
+.topbar{background:var(--white);padding:13px 18px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
+.tb-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);}
+.tb-sub{font-size:12px;color:var(--text3);margin-top:1px;}
+
+/* img backgrounds */
+.bg-a{background:linear-gradient(135deg,#FAECD8,#F0D8B8);}
+.bg-b{background:linear-gradient(135deg,#E8F2E8,#D0E8D0);}
+.bg-c{background:linear-gradient(135deg,#FFF4E8,#F0DDB8);}
+.bg-d{background:linear-gradient(135deg,#F4E8F4,#E4C8E4);}
+.bg-e{background:linear-gradient(135deg,#E8ECF8,#C8D8F0);}
+.bg-f{background:linear-gradient(135deg,#F8F0E8,#E8D8C0);}
+.bg-g{background:linear-gradient(135deg,#FFF0EC,#F8D8C8);}
+.bg-h{background:linear-gradient(135deg,#F0FFF0,#C8F0C8);}
+.bg-i{background:linear-gradient(135deg,#FFFAEC,#F0E4C0);}
+.bg-j{background:linear-gradient(135deg,#F0ECF8,#D8C8F0);}
+.bg-k{background:linear-gradient(135deg,#FFF5F5,#FAE0E0);}
+
+/* ── MAKEUP PANEL ── */
+.makeup-grid{display:flex;flex-direction:column;gap:8px;padding:14px 18px 100px;}
+.mk-brand-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-xs);}
+.mk-brand-row{display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+.mk-brand-row:last-child{border-bottom:none;}
+.mk-brand-row:hover{background:var(--cream);}
+.mk-img{width:44px;height:44px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.mk-info{flex:1;min-width:0;}
+.mk-brand{font-size:13px;font-weight:700;color:var(--text);}
+.mk-desc{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4;}
+.mk-add{width:27px;height:27px;background:var(--terra);border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-size:17px;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.mk-add:hover{background:var(--choco-mid);transform:scale(1.1);}
+.mk-add.added{background:var(--green);font-size:13px;}
+
+/* ── CLOTHING PANEL ── */
+.cloth-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px 100px;}
+.cc{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .22s;box-shadow:var(--sh-xs);}
+.cc:hover{transform:translateY(-3px);box-shadow:var(--sh);}
+.cc-img{height:110px;display:flex;align-items:center;justify-content:center;font-size:44px;}
+.cc-body{padding:10px 12px 13px;}
+.cc-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text4);margin-bottom:3px;}
+.cc-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:8px;}
+.cc-foot{display:flex;align-items:center;justify-content:space-between;}
+.cc-price{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--terra);}
+.cc-add{width:26px;height:26px;background:var(--terra);border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;cursor:pointer;transition:all .2s;}
+.cc-add:hover{background:var(--choco-mid);}
+.cc-add.added{background:var(--green);font-size:11px;}
+</style>
+</head>
+<body>
+<div class="phone-wrap">
+<div class="phone">
+  <div class="dyn-island"></div>
+  <div class="sbar"><span class="stime">9:41</span><div class="sicons"><span>📶</span><span>🔋</span></div></div>
+
+  <div class="screen-wrap">
+
+    <!-- ═══════════════ SUNMI PAGE ═══════════════ -->
+    <div class="screen active" id="s-main">
+
+      <!-- HERO -->
+      <div class="sup-hero">
+        <div class="sh-deco"></div>
+        <div class="sh-top">
+          <div class="back-btn" onclick="showToast('← Retour catalogue')">←</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:rgba(255,255,255,.5);position:relative;z-index:1;">BeautyBridge</div>
+          <div class="lang-toggle">
+            <button class="ltb active" id="ltb-fr" onclick="setLang('fr',this)">FR</button>
+            <button class="ltb" id="ltb-en" onclick="setLang('en',this)">EN</button>
+          </div>
+        </div>
+        <div class="avatar-row">
+          <div class="av">🌿</div>
+          <div>
+            <div class="av-name">Sunmi Skincare</div>
+            <div class="av-sub" data-fr="Grossiste certifiée · Lagos, Nigéria" data-en="Certified wholesaler · Lagos, Nigeria">Grossiste certifiée · Lagos, Nigéria</div>
+            <div class="av-badges">
+              <span class="av-badge">✓ <span data-fr="Vérifiée" data-en="Verified">Vérifiée</span></span>
+              <span class="av-badge">⭐ 4,9</span>
+              <span class="av-badge">🇳🇬 Nigeria</span>
+            </div>
+          </div>
+        </div>
+        <div class="stats-row-hero">
+          <div class="sh-stat"><div class="shs-val">40+</div><div class="shs-key" data-fr="Produits" data-en="Products">Produits</div></div>
+          <div class="sh-stat"><div class="shs-val">3</div><div class="shs-key" data-fr="Collections" data-en="Collections">Collections</div></div>
+          <div class="sh-stat"><div class="shs-val">5</div><div class="shs-key" data-fr="Destinations" data-en="Destinations">Destinations</div></div>
+          <div class="sh-stat"><div class="shs-val">98%</div><div class="shs-key" data-fr="Satisfaction" data-en="Satisfaction">Satisfaction</div></div>
+        </div>
+        <div class="hero-curve"></div>
+      </div>
+
+      <!-- ══ SKINCARE PANEL ══ -->
+      <div id="panel-skincare" style="display:flex;flex-direction:column;gap:8px;padding:14px 18px 100px;">
+
+        <!-- SAVONS NOIRS & PÂTES SAVON -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-a">🖤</div>
+              <div>
+                <div class="sh-nm" data-fr="Savons Noirs & Savons" data-en="Black Soaps & Soaps">Savons Noirs & Savons</div>
+                <div class="sh-ct" data-fr="8 produits" data-en="8 products">8 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Extreme Whitening Face Soap 12pcs = ₦50,000 +20% = ₦60,000 ≈ €33 -->
+            <div class="prod-row">
+              <div class="pr-img bg-a">🖤</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Savon Visage Blanchissant Extrême" data-en="Extreme Whitening Face Soap">Savon Visage Blanchissant Extrême</div>
+                <div class="pr-qty" data-fr="12 pcs (1 douzaine)" data-en="12 pcs (1 dozen)">12 pcs (1 douzaine)</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€33</div>
+                <div class="pr-naira">₦60 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Savon Visage Blanchissant','€33','🖤')">+</div>
+              </div>
+            </div>
+            <!-- Extreme Whitening Soap Paste 5kg = ₦120,000 +20% = ₦144,000 ≈ €79 -->
+            <div class="prod-row">
+              <div class="pr-img bg-f">🫧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Pâte Savon Blanchissante Extrême" data-en="Extreme Whitening Soap Paste">Pâte Savon Blanchissante Extrême</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€79</div>
+                <div class="pr-naira">₦144 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Pâte Savon Blanchissante','€79','🫧')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Face Soap 12pcs = ₦40,000 +20% = ₦48,000 ≈ €26 -->
+            <div class="prod-row">
+              <div class="pr-img bg-b">🖤</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Savon Visage Éclaircissant" data-en="Lightening Face Soap">Savon Visage Éclaircissant</div>
+                <div class="pr-qty" data-fr="12 pcs (1 douzaine)" data-en="12 pcs (1 dozen)">12 pcs (1 douzaine)</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€26</div>
+                <div class="pr-naira">₦48 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Savon Visage Éclaircissant','€26','🖤')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Soap Paste 5kg = ₦100,000 +20% = ₦120,000 ≈ €66 -->
+            <div class="prod-row">
+              <div class="pr-img bg-e">🫧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Pâte Savon Éclaircissante" data-en="Lightening Soap Paste">Pâte Savon Éclaircissante</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€66</div>
+                <div class="pr-naira">₦120 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Pâte Savon Éclaircissante','€66','🫧')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Face Soap 12pcs = ₦30,000 +20% = ₦36,000 ≈ €20 -->
+            <div class="prod-row">
+              <div class="pr-img bg-c">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Savon Visage Radiant Glow" data-en="Radiant Glow Face Soap">Savon Visage Radiant Glow</div>
+                <div class="pr-qty" data-fr="12 pcs (1 douzaine)" data-en="12 pcs (1 dozen)">12 pcs (1 douzaine)</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€20</div>
+                <div class="pr-naira">₦36 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Savon Visage Radiant Glow','€20','✨')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Black Soap Paste 5kg = ₦80,000 +20% = ₦96,000 ≈ €53 -->
+            <div class="prod-row">
+              <div class="pr-img bg-f">🖤</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Savon Noir Pâte Radiant Glow" data-en="Radiant Glow Black Soap Paste">Savon Noir Pâte Radiant Glow</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€53</div>
+                <div class="pr-naira">₦96 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Savon Noir Pâte Radiant Glow','€53','🖤')">+</div>
+              </div>
+            </div>
+            <!-- Pimple/Acne Face Soap 1 dozen = ₦45,000 +20% = ₦54,000 ≈ €30 -->
+            <div class="prod-row">
+              <div class="pr-img bg-k">🌸</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Savon Visage Anti-Acné/Boutons" data-en="Pimple/Acne Face Soap">Savon Visage Anti-Acné/Boutons</div>
+                <div class="pr-qty" data-fr="1 douzaine (12 pcs)" data-en="1 dozen (12 pcs)">1 douzaine (12 pcs)</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€30</div>
+                <div class="pr-naira">₦54 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Savon Anti-Acné','€30','🌸')">+</div>
+              </div>
+            </div>
+            <!-- Pure Rose Water 1kg = ₦45,000 +20% = ₦54,000 ≈ €30 -->
+            <div class="prod-row">
+              <div class="pr-img bg-k">🌹</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Eau de Rose Pure" data-en="Pure Rose Water">Eau de Rose Pure</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€30</div>
+                <div class="pr-naira">₦54 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Eau de Rose Pure','€30','🌹')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BODY BUTTERS & CRÈMES -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-c">🧈</div>
+              <div>
+                <div class="sh-nm" data-fr="Body Butters & Crèmes Corps" data-en="Body Butters & Body Creams">Body Butters & Crèmes Corps</div>
+                <div class="sh-ct" data-fr="6 produits" data-en="6 products">6 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Extreme Whitening Body Lotion/Milk 5kg = ₦260,000 +20% = ₦312,000 ≈ €171 -->
+            <div class="prod-row">
+              <div class="pr-img bg-a">🥛</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Lait Corps Blanchissant Extrême" data-en="Extreme Whitening Body Lotion/Milk">Lait Corps Blanchissant Extrême</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€171</div>
+                <div class="pr-naira">₦312 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Lait Corps Blanchissant Extrême','€171','🥛')">+</div>
+              </div>
+            </div>
+            <!-- Extreme Whitening Face Cream 2kg = ₦170,000 +20% = ₦204,000 ≈ €112 -->
+            <div class="prod-row">
+              <div class="pr-img bg-g">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Visage Blanchissante Extrême" data-en="Extreme Whitening Face Cream">Crème Visage Blanchissante Extrême</div>
+                <div class="pr-qty">2 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€112</div>
+                <div class="pr-naira">₦204 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Visage Blanchissante','€112','✨')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Body Lotion/Milk 5kg = ₦200,000 +20% = ₦240,000 ≈ €132 -->
+            <div class="prod-row">
+              <div class="pr-img bg-b">🥛</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Lait Corps Éclaircissant" data-en="Lightening Body Lotion/Milk">Lait Corps Éclaircissant</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€132</div>
+                <div class="pr-naira">₦240 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Lait Corps Éclaircissant','€132','🥛')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Face Cream 2kg = ₦160,000 +20% = ₦192,000 ≈ €105 -->
+            <div class="prod-row">
+              <div class="pr-img bg-e">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Visage Éclaircissante" data-en="Lightening Face Cream">Crème Visage Éclaircissante</div>
+                <div class="pr-qty">2 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€105</div>
+                <div class="pr-naira">₦192 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Visage Éclaircissante','€105','✨')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Body Lotion/Milk 5kg = ₦180,000 +20% = ₦216,000 ≈ €119 -->
+            <div class="prod-row">
+              <div class="pr-img bg-c">🥛</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Lait Corps Radiant Glow" data-en="Radiant Glow Body Lotion/Milk">Lait Corps Radiant Glow</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€119</div>
+                <div class="pr-naira">₦216 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Lait Corps Radiant Glow','€119','🥛')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Face Cream 2kg = ₦150,000 +20% = ₦180,000 ≈ €99 -->
+            <div class="prod-row">
+              <div class="pr-img bg-i">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Visage Radiant Glow" data-en="Radiant Glow Face Cream">Crème Visage Radiant Glow</div>
+                <div class="pr-qty">2 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€99</div>
+                <div class="pr-naira">₦180 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Visage Radiant Glow','€99','✨')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BODY EXFOLIATION -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-g">🌿</div>
+              <div>
+                <div class="sh-nm" data-fr="Exfoliation Corps & Gels Douche" data-en="Body Exfoliation & Shower Gels">Exfoliation Corps & Gels Douche</div>
+                <div class="sh-ct" data-fr="6 produits" data-en="6 products">6 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Extreme Whitening Body Scrub 5kg = ₦160,000 +20% = ₦192,000 ≈ €105 -->
+            <div class="prod-row">
+              <div class="pr-img bg-a">🌿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gommage Corps Blanchissant Extrême" data-en="Extreme Whitening Body Scrub">Gommage Corps Blanchissant Extrême</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€105</div>
+                <div class="pr-naira">₦192 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gommage Corps Blanchissant','€105','🌿')">+</div>
+              </div>
+            </div>
+            <!-- Extreme Whitening Body Wash 5kg = ₦150,000 +20% = ₦180,000 ≈ €99 -->
+            <div class="prod-row">
+              <div class="pr-img bg-f">🚿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gel Douche Blanchissant Extrême" data-en="Extreme Whitening Body Wash">Gel Douche Blanchissant Extrême</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€99</div>
+                <div class="pr-naira">₦180 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gel Douche Blanchissant','€99','🚿')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Body Scrub 5kg = ₦130,000 +20% = ₦156,000 ≈ €86 -->
+            <div class="prod-row">
+              <div class="pr-img bg-b">🌿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gommage Corps Éclaircissant" data-en="Lightening Body Scrub">Gommage Corps Éclaircissant</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€86</div>
+                <div class="pr-naira">₦156 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gommage Corps Éclaircissant','€86','🌿')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Body Wash 5kg = ₦140,000 +20% = ₦168,000 ≈ €92 -->
+            <div class="prod-row">
+              <div class="pr-img bg-e">🚿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gel Douche Éclaircissant" data-en="Lightening Body Wash">Gel Douche Éclaircissant</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€92</div>
+                <div class="pr-naira">₦168 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gel Douche Éclaircissant','€92','🚿')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Body Scrub 5kg = ₦120,000 +20% = ₦144,000 ≈ €79 -->
+            <div class="prod-row">
+              <div class="pr-img bg-c">🌿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gommage Corps Radiant Glow" data-en="Radiant Glow Body Scrub">Gommage Corps Radiant Glow</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€79</div>
+                <div class="pr-naira">₦144 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gommage Corps Radiant Glow','€79','🌿')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Body Wash 5kg = ₦120,000 +20% = ₦144,000 ≈ €79 -->
+            <div class="prod-row">
+              <div class="pr-img bg-i">🚿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gel Douche Radiant Glow" data-en="Radiant Glow Body Wash">Gel Douche Radiant Glow</div>
+                <div class="pr-qty">5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€79</div>
+                <div class="pr-naira">₦144 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gel Douche Radiant Glow','€79','🚿')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BODY OILS -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-i">💧</div>
+              <div>
+                <div class="sh-nm" data-fr="Huiles Corps" data-en="Body Oils">Huiles Corps</div>
+                <div class="sh-ct" data-fr="3 produits" data-en="3 products">3 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Extreme Whitening Body Oil 2.5kg = ₦200,000 +20% = ₦240,000 ≈ €132 -->
+            <div class="prod-row">
+              <div class="pr-img bg-a">💧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Huile Corps Blanchissante Extrême" data-en="Extreme Whitening Body Oil">Huile Corps Blanchissante Extrême</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€132</div>
+                <div class="pr-naira">₦240 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Huile Corps Blanchissante','€132','💧')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Body Oil 2.5kg = ₦170,000 +20% = ₦204,000 ≈ €112 -->
+            <div class="prod-row">
+              <div class="pr-img bg-b">💧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Huile Corps Éclaircissante" data-en="Lightening Body Oil">Huile Corps Éclaircissante</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€112</div>
+                <div class="pr-naira">₦204 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Huile Corps Éclaircissante','€112','💧')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Body Oil 2.5kg = ₦150,000 +20% = ₦180,000 ≈ €99 -->
+            <div class="prod-row">
+              <div class="pr-img bg-c">💧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Huile Corps Radiant Glow" data-en="Radiant Glow Body Oil">Huile Corps Radiant Glow</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€99</div>
+                <div class="pr-naira">₦180 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Huile Corps Radiant Glow','€99','💧')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SÉRUMS & SOINS VISAGE SPÉCIALISÉS -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-d">🔬</div>
+              <div>
+                <div class="sh-nm" data-fr="Sérums, Soins Visage & Spécialités" data-en="Serums, Facial Care & Specialties">Sérums, Soins Visage & Spécialités</div>
+                <div class="sh-ct" data-fr="11 produits" data-en="11 products">11 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Extreme Whitening Vitamin Face Serum 1kg = ₦90,000 +20% = ₦108,000 ≈ €59 -->
+            <div class="prod-row">
+              <div class="pr-img bg-a">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Sérum Vitaminé Visage Blanchissant" data-en="Extreme Whitening Vitamin Face Serum">Sérum Vitaminé Visage Blanchissant</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€59</div>
+                <div class="pr-naira">₦108 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Sérum Vitaminé Blanchissant','€59','✨')">+</div>
+              </div>
+            </div>
+            <!-- Extreme Whitening Face Cleanser/Toner 2.5kg = ₦150,000 +20% = ₦180,000 ≈ €99 -->
+            <div class="prod-row">
+              <div class="pr-img bg-g">💆</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Nettoyant / Tonique Visage Blanchissant" data-en="Extreme Whitening Face Cleanser/Toner">Nettoyant / Tonique Visage Blanchissant</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-w" data-fr="Kit Blanchissant" data-en="Whitening Kit">Kit Blanchissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€99</div>
+                <div class="pr-naira">₦180 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Tonique Visage Blanchissant','€99','💆')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Vitamin Face Serum 1kg = ₦90,000 +20% = ₦108,000 ≈ €59 -->
+            <div class="prod-row">
+              <div class="pr-img bg-b">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Sérum Vitaminé Visage Éclaircissant" data-en="Lightening Vitamin Face Serum">Sérum Vitaminé Visage Éclaircissant</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€59</div>
+                <div class="pr-naira">₦108 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Sérum Visage Éclaircissant','€59','✨')">+</div>
+              </div>
+            </div>
+            <!-- Lightening Face Cleanser/Toner 2.5kg = ₦120,000 +20% = ₦144,000 ≈ €79 -->
+            <div class="prod-row">
+              <div class="pr-img bg-e">💆</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Nettoyant / Tonique Visage Éclaircissant" data-en="Lightening Face Cleanser/Toner">Nettoyant / Tonique Visage Éclaircissant</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-l" data-fr="Kit Éclaircissant" data-en="Lightening Kit">Kit Éclaircissant</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€79</div>
+                <div class="pr-naira">₦144 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Tonique Visage Éclaircissant','€79','💆')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Vitamin C Face Serum Oil 1kg = ₦90,000 +20% = ₦108,000 ≈ €59 -->
+            <div class="prod-row">
+              <div class="pr-img bg-c">🌟</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Sérum Huile Visage Vitamine C Radiant Glow" data-en="Vitamin C Face Serum Oil Radiant Glow">Sérum Huile Visage Vit. C Radiant Glow</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€59</div>
+                <div class="pr-naira">₦108 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Sérum Vit. C Radiant Glow','€59','🌟')">+</div>
+              </div>
+            </div>
+            <!-- Radiant Glow Face Cleanser/Toner 2.5kg = ₦100,000 +20% = ₦120,000 ≈ €66 -->
+            <div class="prod-row">
+              <div class="pr-img bg-i">💆</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Nettoyant / Tonique Visage Radiant Glow" data-en="Radiant Glow Face Cleanser/Toner">Nettoyant / Tonique Visage Radiant Glow</div>
+                <div class="pr-qty">2,5 kg</div>
+                <span class="pr-kit kit-r" data-fr="Radiant Glow" data-en="Radiant Glow">Radiant Glow</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€66</div>
+                <div class="pr-naira">₦120 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Tonique Visage Radiant Glow','€66','💆')">+</div>
+              </div>
+            </div>
+            <!-- Stretch Mark Cream 2kg = ₦60,000 +20% = ₦72,000 ≈ €40 -->
+            <div class="prod-row">
+              <div class="pr-img bg-f">🌸</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Anti-Vergetures" data-en="Stretch Mark Cream">Crème Anti-Vergetures</div>
+                <div class="pr-qty">2 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€40</div>
+                <div class="pr-naira">₦72 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Anti-Vergetures','€40','🌸')">+</div>
+              </div>
+            </div>
+            <!-- Pimple/Acne Cleanser 1kg = ₦50,000 +20% = ₦60,000 ≈ €33 -->
+            <div class="prod-row">
+              <div class="pr-img bg-k">🌺</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Nettoyant Anti-Acné/Boutons" data-en="Pimple/Acne Cleanser">Nettoyant Anti-Acné/Boutons</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€33</div>
+                <div class="pr-naira">₦60 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Nettoyant Anti-Acné','€33','🌺')">+</div>
+              </div>
+            </div>
+            <!-- Pimple/Acne Face Cream 1kg = ₦70,000 +20% = ₦84,000 ≈ €46 -->
+            <div class="prod-row">
+              <div class="pr-img bg-k">💊</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Visage Anti-Acné" data-en="Pimple/Acne Face Cream">Crème Visage Anti-Acné</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€46</div>
+                <div class="pr-naira">₦84 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Visage Anti-Acné','€46','💊')">+</div>
+              </div>
+            </div>
+            <!-- Face Mask Powder 1kg = ₦60,000 +20% = ₦72,000 ≈ €40 -->
+            <div class="prod-row">
+              <div class="pr-img bg-d">🎭</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Masque Visage en Poudre" data-en="Face Mask Powder">Masque Visage en Poudre</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€40</div>
+                <div class="pr-naira">₦72 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Masque Visage Poudre','€40','🎭')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DARK KNUCKLES -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl">
+              <div class="sh-ico bg-j">🖐️</div>
+              <div>
+                <div class="sh-nm" data-fr="Soins Coudes & Articulations" data-en="Dark Knuckle Care">Soins Coudes & Articulations</div>
+                <div class="sh-ct" data-fr="5 produits" data-en="5 products">5 produits</div>
+              </div>
+            </div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <!-- Stretch Mark Oil 2kg = ₦80,000 +20% = ₦96,000 ≈ €53 -->
+            <div class="prod-row">
+              <div class="pr-img bg-f">💧</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Huile Anti-Vergetures" data-en="Stretch Mark Oil">Huile Anti-Vergetures</div>
+                <div class="pr-qty">2 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€53</div>
+                <div class="pr-naira">₦96 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Huile Anti-Vergetures','€53','💧')">+</div>
+              </div>
+            </div>
+            <!-- Dark Knuckle Cream 1kg = ₦50,000 +20% = ₦60,000 ≈ €33 -->
+            <div class="prod-row">
+              <div class="pr-img bg-j">🖐️</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Crème Éclaircissante Coudes & Articulations" data-en="Dark Knuckle Cream">Crème Éclaircissante Coudes & Articulations</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€33</div>
+                <div class="pr-naira">₦60 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Crème Coudes Éclaircissante','€33','🖐️')">+</div>
+              </div>
+            </div>
+            <!-- Dark Knuckles Serum 1kg = ₦60,000 +20% = ₦72,000 ≈ €40 -->
+            <div class="prod-row">
+              <div class="pr-img bg-j">✨</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Sérum Éclaircissant Articulations" data-en="Dark Knuckles Serum">Sérum Éclaircissant Articulations</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€40</div>
+                <div class="pr-naira">₦72 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Sérum Articulations','€40','✨')">+</div>
+              </div>
+            </div>
+            <!-- Dark Knuckles Cleanse 1kg = ₦70,000 +20% = ₦84,000 ≈ €46 -->
+            <div class="prod-row">
+              <div class="pr-img bg-j">🧼</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Nettoyant Articulations" data-en="Dark Knuckles Cleanser">Nettoyant Articulations</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€46</div>
+                <div class="pr-naira">₦84 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Nettoyant Articulations','€46','🧼')">+</div>
+              </div>
+            </div>
+            <!-- Dark Knuckles Scrub 1kg = ₦45,000 +20% = ₦54,000 ≈ €30 -->
+            <div class="prod-row">
+              <div class="pr-img bg-j">🌿</div>
+              <div class="pr-info">
+                <div class="pr-name" data-fr="Gommage Articulations" data-en="Dark Knuckles Scrub">Gommage Articulations</div>
+                <div class="pr-qty">1 kg</div>
+                <span class="pr-kit kit-s" data-fr="Spécialité" data-en="Specialty">Spécialité</span>
+              </div>
+              <div class="pr-right">
+                <div class="pr-price">€30</div>
+                <div class="pr-naira">₦54 000</div>
+                <div class="pr-add" onclick="addToCart(this,'Gommage Articulations','€30','🌿')">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /panel-skincare -->
+    </div><!-- /s-main -->
+
+
+    <!-- ═══════════════ MAKEUP ═══════════════ -->
+    <div class="screen" id="s-makeup">
+      <div class="topbar">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);" data-fr="Makeup Nigérian" data-en="Nigerian Makeup">Makeup Nigérian</div>
+          <div style="font-size:12px;color:var(--text3);" data-fr="Marques sélectionnées · Lagos" data-en="Selected brands · Lagos">Marques sélectionnées · Lagos</div>
+        </div>
+        <div style="font-size:22px;">💄</div>
+      </div>
+
+      <div class="makeup-grid">
+
+        <!-- BASES (FOUNDATION) -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#FAECD8,#F0D8B8);">🎨</div>
+            <div><div class="sh-nm" data-fr="Bases (Fond de Teint)" data-en="Foundation">Bases (Fond de Teint)</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF4E8,#F0E0C0);">✨</div>
+              <div class="mk-info">
+                <div class="mk-brand">Yanga Beauty</div>
+                <div class="mk-desc" data-fr="Base liquide «Skin M-Fix / SMF Foundation» — très utilisée par les MUAs à Lagos" data-en="Liquid foundation 'Skin M-Fix / SMF Foundation' — widely used by Lagos MUAs">Base liquide «Skin M-Fix / SMF Foundation» — très utilisée par les MUAs à Lagos</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Yanga Beauty — SMF Foundation','Sur devis','✨')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF0EC,#F8D8C8);">💧</div>
+              <div class="mk-info">
+                <div class="mk-brand">Avour Cosmetics</div>
+                <div class="mk-desc" data-fr="Base couvrance moyenne-haute pour peau grasse/mixte" data-en="Medium-high coverage foundation for oily/combination skin">Base couvrance moyenne-haute pour peau grasse/mixte</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Avour Cosmetics — Base','Sur devis','💧')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">💜</div>
+              <div class="mk-info">
+                <div class="mk-brand">Nuban Beauty</div>
+                <div class="mk-desc" data-fr="«Pro-Matte HD Foundation» — teintes adaptées aux peaux africaines" data-en="'Pro-Matte HD Foundation' — shades for African skin tones">«Pro-Matte HD Foundation» — teintes adaptées aux peaux africaines</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Nuban Beauty — Pro-Matte HD Foundation','Sur devis','💜')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CORRECTEURS (CONCEALER) -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#FFF8EC,#F0E4B8);">🌟</div>
+            <div><div class="sh-nm" data-fr="Correcteurs (Anticernes)" data-en="Concealer">Correcteurs (Anticernes)</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">💜</div>
+              <div class="mk-info">
+                <div class="mk-brand">Nuban Beauty</div>
+                <div class="mk-desc" data-fr="Correcteur liquide — teintes 046–048 très demandées" data-en="Liquid concealer — shades 046–048 very popular">Correcteur liquide — teintes 046–048 très demandées</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Nuban Beauty — Correcteur liquide','Sur devis','💜')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF0EC,#F8D8C8);">💧</div>
+              <div class="mk-info">
+                <div class="mk-brand">Avour Cosmetics</div>
+                <div class="mk-desc" data-fr="Correcteur en tube — s'associe parfaitement avec leur base" data-en="Tube concealer — pairs perfectly with their foundation">Correcteur en tube — s'associe parfaitement avec leur base</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Avour Cosmetics — Correcteur','Sur devis','💧')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#E8F4FF,#C8E4F8);">💙</div>
+              <div class="mk-info">
+                <div class="mk-brand">Hegai & Esther</div>
+                <div class="mk-desc" data-fr="Correcteur crème haute couvrance" data-en="High coverage cream concealer">Correcteur crème haute couvrance</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Hegai & Esther — Correcteur crème','Sur devis','💙')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POLVOS (SETTING / FINISHING POWDER) -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#F0F0E8,#E0DCC0);">⭐</div>
+            <div><div class="sh-nm" data-fr="Poudres (Setting / Finishing)" data-en="Setting / Finishing Powder">Poudres (Setting / Finishing)</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF8EC,#F0E4B8);">🌟</div>
+              <div class="mk-info">
+                <div class="mk-brand">Vee Beauty Cosmetics</div>
+                <div class="mk-desc" data-fr="Poudres compactes / mattifiantes" data-en="Compact / mattifying powders">Poudres compactes / mattifiantes</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Vee Beauty — Poudre compacte','Sur devis','🌟')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F0FFF0,#C8F0C8);">✨</div>
+              <div class="mk-info">
+                <div class="mk-brand">Tehila Cosmetics</div>
+                <div class="mk-desc" data-fr="Setting powder en vrac pour fixer le maquillage" data-en="Loose setting powder to seal makeup">Setting powder en vrac pour fixer le maquillage</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Tehila Cosmetics — Setting Powder','Sur devis','✨')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F8F0E8,#E8D8C0);">🏺</div>
+              <div class="mk-info">
+                <div class="mk-brand">Zaron Cosmetics</div>
+                <div class="mk-desc" data-fr="«Mattifying Powder» — contrôle du brillant" data-en="'Mattifying Powder' — shine control">«Mattifying Powder» — contrôle du brillant</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Zaron Cosmetics — Mattifying Powder','Sur devis','🏺')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SPRAY FIJADOR (SETTING SPRAY) -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#E8ECF8,#C8D8F0);">💦</div>
+            <div><div class="sh-nm" data-fr="Spray Fixateur (Setting Spray)" data-en="Setting Spray">Spray Fixateur (Setting Spray)</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#E8F4FF,#C8E4F8);">💦</div>
+              <div class="mk-info">
+                <div class="mk-brand">Soo Pro Cosmetics</div>
+                <div class="mk-desc" data-fr="«Makeup Fixing Spray / Seal It»" data-en="'Makeup Fixing Spray / Seal It'">"Makeup Fixing Spray / Seal It"</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Soo Pro — Makeup Fixing Spray','Sur devis','💦')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F0F8EC,#D0E8C0);">🌿</div>
+              <div class="mk-info">
+                <div class="mk-brand">Msmetics</div>
+                <div class="mk-desc" data-fr="«Fixing / Hydrating Mist» — versions glow et mat disponibles" data-en="'Fixing / Hydrating Mist' — glow and matte versions available">«Fixing / Hydrating Mist» — versions glow et mat disponibles</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Msmetics — Fixing Hydrating Mist','Sur devis','🌿')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">💜</div>
+              <div class="mk-info">
+                <div class="mk-brand">Nuban Beauty</div>
+                <div class="mk-desc" data-fr="«Setting Spray» — très utilisé par les maquilleurs pros" data-en="'Setting Spray' — widely used by pro MUAs">«Setting Spray» — très utilisé par les maquilleurs pros</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Nuban Beauty — Setting Spray','Sur devis','💜')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PALETTES / SOMBRAS DE OJOS Y ROSTRO -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#F4E8F4,#E0C0E0);">🎭</div>
+            <div><div class="sh-nm" data-fr="Palettes Yeux & Visage" data-en="Eye & Face Palettes">Palettes Yeux & Visage</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF0EC,#F8C8B8);">🌸</div>
+              <div class="mk-info">
+                <div class="mk-brand">Blossom Makeup</div>
+                <div class="mk-desc" data-fr="Palettes de fards très colorées et abordables" data-en="Very colourful and affordable eyeshadow palettes">Palettes de fards très colorées et abordables</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Blossom Makeup — Palette','Sur devis','🌸')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">💜</div>
+              <div class="mk-info">
+                <div class="mk-brand">Nuban Beauty</div>
+                <div class="mk-desc" data-fr="Palettes de fards professionnelles" data-en="Professional eyeshadow palettes">Palettes de fards professionnelles</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Nuban Beauty — Palette pro','Sur devis','💜')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF8EC,#F0D8A8);">⭐</div>
+              <div class="mk-info">
+                <div class="mk-brand">Elsas Pro</div>
+                <div class="mk-desc" data-fr="Palettes blush/contour utilisées par les maquilleurs" data-en="Blush/contour palettes used by professional MUAs">Palettes blush/contour utilisées par les maquilleurs</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Elsas Pro — Palette blush/contour','Sur devis','⭐')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LABIALES / GLOSS -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#FFF0EC,#F8C8B8);">💋</div>
+            <div><div class="sh-nm" data-fr="Lèvres — Labials & Gloss" data-en="Lips — Lipsticks & Gloss">Lèvres — Labials & Gloss</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F8F0E8,#E8D8C0);">🏺</div>
+              <div class="mk-info">
+                <div class="mk-brand">Zaron Cosmetics</div>
+                <div class="mk-desc" data-fr="Gloss lèvres et labials liquides mat" data-en="Lip glosses and matte liquid lipsticks">Gloss lèvres et labials liquides mat</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Zaron Cosmetics — Gloss & Labial mat','Sur devis','🏺')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">💜</div>
+              <div class="mk-info">
+                <div class="mk-brand">Nuban Beauty</div>
+                <div class="mk-desc" data-fr="Lip glosses et labials liquides" data-en="Lip glosses and liquid lipsticks">Lip glosses et labials liquides</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Nuban Beauty — Lip Gloss','Sur devis','💜')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#E8F4FF,#C8E4F8);">💙</div>
+              <div class="mk-info">
+                <div class="mk-brand">Hegai & Esther</div>
+                <div class="mk-desc" data-fr="Gloss et bâtons à lèvres très présents en boutiques locales" data-en="Glosses and lip sticks widely available in local stores">Gloss et bâtons à lèvres très présents en boutiques locales</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Hegai & Esther — Gloss & Bâton lèvres','Sur devis','💙')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CEJAS / OJOS -->
+        <div class="subcat-section">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <div class="shl"><div class="sh-ico" style="background:linear-gradient(135deg,#E8ECF8,#C8D4F0);">👁️</div>
+            <div><div class="sh-nm" data-fr="Sourcils & Yeux" data-en="Brows & Eyes">Sourcils & Yeux</div><div class="sh-ct" data-fr="3 marques" data-en="3 brands">3 marques</div></div></div>
+            <span class="sh-arr">›</span>
+          </div>
+          <div class="sub-body">
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#FFF4E8,#F0DDB8);">✨</div>
+              <div class="mk-info">
+                <div class="mk-brand">Yanga Beauty</div>
+                <div class="mk-desc" data-fr="«Browlution» — kit sourcils très reconnu au Nigéria" data-en="'Browlution' — brow kit very well known in Nigeria">«Browlution» — kit sourcils très reconnu au Nigéria</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Yanga Beauty — Browlution Kit','Sur devis','✨')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#E8F4FF,#C8E4F8);">💙</div>
+              <div class="mk-info">
+                <div class="mk-brand">Hegai & Esther</div>
+                <div class="mk-desc" data-fr="Gel sourcils et delineadores (eye liners)" data-en="Brow gel and eye liners">Gel sourcils et eye liners</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Hegai & Esther — Gel sourcils & Liner','Sur devis','💙')">+</div>
+            </div>
+            <div class="mk-brand-row">
+              <div class="mk-img" style="background:linear-gradient(135deg,#F0ECF8,#D8C8F0);">🔮</div>
+              <div class="mk-info">
+                <div class="mk-brand">Omaricode</div>
+                <div class="mk-desc" data-fr="Mascara «Eclipsa» et autres produits yeux" data-en="'Eclipsa' mascara and other eye products">Mascara «Eclipsa» et autres produits yeux</div>
+              </div>
+              <div class="mk-add" onclick="addToCart(this,'Omaricode — Mascara Eclipsa','Sur devis','🔮')">+</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════ CLOTHING ═══════════════ -->
+    <div class="screen" id="s-clothing">
+      <div class="topbar">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);" data-fr="Vêtements Africains" data-en="African Clothing">Vêtements Africains</div>
+          <div style="font-size:12px;color:var(--text3);" data-fr="Collection légère & estivale · Prix sur devis" data-en="Light & summery collection · Price on request">Collection légère & estivale · Prix sur devis</div>
+        </div>
+        <div style="font-size:22px;">👗</div>
+      </div>
+      <div class="cloth-grid">
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#FFF0EC,#F8D8C8);">👗</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Tenue Africaine" data-en="African Outfit">Tenue Africaine</div>
+            <div class="cc-name" data-fr="Boubou Élégant Brodé" data-en="Elegant Embroidered Boubou">Boubou Élégant Brodé</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Boubou Élégant Brodé','Sur devis','👗')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#E8F4FF,#C8E4F8);">🌸</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Robe" data-en="Dress">Robe</div>
+            <div class="cc-name" data-fr="Robe d'Été Fleurie" data-en="Floral Summer Dress">Robe d'Été Fleurie</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Robe d'Été Fleurie','Sur devis','🌸')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#FFF8EC,#F0E4B8);">🪡</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Ensemble" data-en="Set">Ensemble</div>
+            <div class="cc-name" data-fr="Ensemble Wax Moderne" data-en="Modern Wax Print Set">Ensemble Wax Moderne</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Ensemble Wax Moderne','Sur devis','🪡')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#F4E8F4,#E4C8E4);">👘</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Tenue Africaine" data-en="African Outfit">Tenue Africaine</div>
+            <div class="cc-name" data-fr="Boubou Wax Coloré" data-en="Colourful Wax Boubou">Boubou Wax Coloré</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Boubou Wax Coloré','Sur devis','👘')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#F0FFF0,#C8F0C8);">🌿</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Robe" data-en="Dress">Robe</div>
+            <div class="cc-name" data-fr="Robe Longue Ankara" data-en="Ankara Long Dress">Robe Longue Ankara</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Robe Longue Ankara','Sur devis','🌿')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#FFF0E0,#F0D8A8);">☀️</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Ensemble" data-en="Set">Ensemble</div>
+            <div class="cc-name" data-fr="Ensemble Estival Léger" data-en="Light Summer Set">Ensemble Estival Léger</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Ensemble Estival Léger','Sur devis','☀️')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#FAECD8,#F0D8B8);">🏵️</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Robe" data-en="Dress">Robe</div>
+            <div class="cc-name" data-fr="Robe Midi Imprimée" data-en="Printed Midi Dress">Robe Midi Imprimée</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Robe Midi Imprimée','Sur devis','🏵️')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#F0ECF8,#D8C8F0);">✨</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Tenue Africaine" data-en="African Outfit">Tenue Africaine</div>
+            <div class="cc-name" data-fr="Boubou Soirée Brodé Or" data-en="Gold Embroidered Evening Boubou">Boubou Soirée Brodé Or</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Boubou Soirée Brodé Or','Sur devis','✨')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#FFF4E8,#F0DDB8);">🌺</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Robe" data-en="Dress">Robe</div>
+            <div class="cc-name" data-fr="Robe Bain de Soleil" data-en="Sun Dress">Robe Bain de Soleil</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Robe Bain de Soleil','Sur devis','🌺')">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc">
+          <div class="cc-img" style="background:linear-gradient(135deg,#E8F2E8,#C8E4C8);">🪢</div>
+          <div class="cc-body">
+            <div class="cc-type" data-fr="Ensemble" data-en="Set">Ensemble</div>
+            <div class="cc-name" data-fr="Co-ord Set Tropical" data-en="Tropical Co-ord Set">Co-ord Set Tropical</div>
+            <div class="cc-foot">
+              <div class="cc-price" data-fr="Sur devis" data-en="On request">Sur devis</div>
+              <div class="cc-add" onclick="addToCart(this,'Co-ord Set Tropical','Sur devis','🪢')">+</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════ CARGO ═══════════════ -->
+    <div class="screen" id="s-cargo">
+      <div class="topbar">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);" data-fr="Cargo & Livraison" data-en="Cargo & Shipping">Cargo & Livraison</div>
+          <div style="font-size:12px;color:var(--text3);" data-fr="Depuis Lagos, Nigéria 🇳🇬" data-en="From Lagos, Nigeria 🇳🇬">Depuis Lagos, Nigéria 🇳🇬</div>
+        </div>
+        <div style="font-size:22px;">📦</div>
+      </div>
+      <div class="cargo-pad">
+        <div class="cargo-banner">
+          <div class="cb-title" data-fr="Expédition directe vers l'Europe & les USA" data-en="Direct shipping to Europe & USA">Expédition directe vers l'Europe & les USA</div>
+          <div class="cb-sub" data-fr="Sunmi Skincare expédie depuis Lagos vers 5 destinations. Dédouanement, suivi et assurance inclus." data-en="Sunmi Skincare ships from Lagos to 5 destinations. Customs clearance, tracking and insurance included.">Sunmi Skincare expédie depuis Lagos vers 5 destinations. Dédouanement, suivi et assurance inclus.</div>
+        </div>
+        <div class="dest-card">
+          <div class="dc-hd">
+            <div class="dc-hd-title" data-fr="Destinations disponibles" data-en="Available destinations">Destinations disponibles</div>
+            <div class="dc-hd-sub" data-fr="Cliquez pour réserver votre cargo" data-en="Tap to book your cargo">Cliquez pour réserver votre cargo</div>
+          </div>
+          <div class="dest-row" onclick="showToast('🇪🇸 Réservation Lagos → Espagne')">
+            <div class="dr-flag">🇪🇸</div>
+            <div class="dr-main">
+              <div class="dr-country" data-fr="Espagne" data-en="Spain">Espagne</div>
+              <div class="dr-detail" data-fr="Aérien · 4–6 jours · Suivi inclus" data-en="Air · 4–6 days · Tracked">Aérien · 4–6 jours · Suivi inclus</div>
+            </div>
+            <div class="dr-price">€3,20/kg</div>
+            <div class="dr-arr">›</div>
+          </div>
+          <div class="dest-row" onclick="showToast('🇫🇷 Réservation Lagos → France')">
+            <div class="dr-flag">🇫🇷</div>
+            <div class="dr-main">
+              <div class="dr-country" data-fr="France" data-en="France">France</div>
+              <div class="dr-detail" data-fr="Aérien · 4–6 jours · Suivi inclus" data-en="Air · 4–6 days · Tracked">Aérien · 4–6 jours · Suivi inclus</div>
+            </div>
+            <div class="dr-price">€3,10/kg</div>
+            <div class="dr-arr">›</div>
+          </div>
+          <div class="dest-row" onclick="showToast('🇩🇪 Réservation Lagos → Allemagne')">
+            <div class="dr-flag">🇩🇪</div>
+            <div class="dr-main">
+              <div class="dr-country" data-fr="Allemagne" data-en="Germany">Allemagne</div>
+              <div class="dr-detail" data-fr="Maritime + Air · 12–18 jours · Vrac" data-en="Sea + Air · 12–18 days · Bulk">Maritime + Air · 12–18 jours · Vrac</div>
+            </div>
+            <div class="dr-price">€1,20/kg</div>
+            <div class="dr-arr">›</div>
+          </div>
+          <div class="dest-row" onclick="showToast('🇬🇧 Réservation Lagos → Royaume-Uni')">
+            <div class="dr-flag">🇬🇧</div>
+            <div class="dr-main">
+              <div class="dr-country" data-fr="Royaume-Uni" data-en="United Kingdom">Royaume-Uni</div>
+              <div class="dr-detail" data-fr="Aérien · 3–5 jours · Suivi inclus" data-en="Air · 3–5 days · Tracked">Aérien · 3–5 jours · Suivi inclus</div>
+            </div>
+            <div class="dr-price">€2,80/kg</div>
+            <div class="dr-arr">›</div>
+          </div>
+          <div class="dest-row" onclick="showToast('🇺🇸 Réservation Lagos → États-Unis')">
+            <div class="dr-flag">🇺🇸</div>
+            <div class="dr-main">
+              <div class="dr-country" data-fr="États-Unis" data-en="United States">États-Unis</div>
+              <div class="dr-detail" data-fr="Aérien · 5–8 jours · Suivi inclus" data-en="Air · 5–8 days · Tracked">Aérien · 5–8 jours · Suivi inclus</div>
+            </div>
+            <div class="dr-price">€4,50/kg</div>
+            <div class="dr-arr">›</div>
+          </div>
+        </div>
+        <div class="cargo-note">
+          <div class="cn-icon">ℹ️</div>
+          <div>
+            <div class="cn-title" data-fr="Informations importantes" data-en="Important information">Informations importantes</div>
+            <div class="cn-text" data-fr="Les prix cargo sont calculés au poids réel ou volumétrique. Tous les envois incluent le suivi en temps réel, l'assurance et la documentation douanière. Les taxes d'importation sont à la charge du destinataire." data-en="Cargo prices are calculated on actual or volumetric weight. All shipments include real-time tracking, insurance and customs documentation. Import duties are the responsibility of the recipient.">Les prix cargo sont calculés au poids réel ou volumétrique. Tous les envois incluent le suivi en temps réel, l'assurance et la documentation douanière. Les taxes d'importation sont à la charge du destinataire.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PANIER ═══════════════ -->
+    <div class="screen" id="s-cart">
+      <div class="topbar">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);" data-fr="Mon Panier" data-en="My Cart">Mon Panier</div>
+          <div style="font-size:12px;color:var(--text3);" id="cart-count-label" data-fr="0 article" data-en="0 item">0 article</div>
+        </div>
+        <button class="btn btn-outline" style="font-size:12px;padding:7px 14px;" onclick="clearCart()" data-fr="Vider" data-en="Clear">Vider</button>
+      </div>
+      <div id="cart-empty-state" class="cart-empty">
+        <div class="ce-icon">🛒</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text2);" data-fr="Panier vide" data-en="Empty cart">Panier vide</div>
+        <div style="font-size:13px;color:var(--text3);line-height:1.5;" data-fr="Ajoutez des produits Sunmi Skincare depuis les onglets Skincare, Makeup ou Vêtements." data-en="Add Sunmi Skincare products from the Skincare, Makeup or Clothes tabs.">Ajoutez des produits Sunmi Skincare depuis les onglets Skincare, Makeup ou Vêtements.</div>
+        <button class="btn btn-primary" onclick="navTo('s-main',0);" data-fr="Parcourir les produits" data-en="Browse products">Parcourir les produits</button>
+      </div>
+      <div class="cart-pad" id="cart-items-wrap" style="display:none;"></div>
+      <div id="cart-summary-wrap" style="display:none;padding:0 18px 100px;">
+        <div class="cart-sum">
+          <div class="csrow"><span class="csk" data-fr="Sous-total produits" data-en="Products subtotal">Sous-total produits</span><span class="csv" id="cart-subtotal">€0</span></div>
+          <div class="csrow"><span class="csk" data-fr="Cargo estimé" data-en="Est. cargo">Cargo estimé</span><span class="csv" data-fr="Sur devis" data-en="On request">Sur devis</span></div>
+          <div class="cs-sep"></div>
+          <div class="cs-tot"><span class="cs-tl" data-fr="Total estimé" data-en="Estimated total">Total estimé</span><span class="cs-tv" id="cart-total">€0</span></div>
+          <div style="margin-top:16px;">
+            <button class="btn btn-primary btn-full" onclick="showToast('✅ Demande envoyée à Sunmi Skincare !')" data-fr="📩 Envoyer la commande à Sunmi" data-en="📩 Send order to Sunmi">📩 Envoyer la commande à Sunmi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screen-wrap -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <div class="bi active" id="bi-0" onclick="navTo('s-main',0)">
+      <div class="bi-icon">🧴</div>
+      <div class="bi-label" data-fr="Skincare" data-en="Skincare">Skincare</div>
+    </div>
+    <div class="bi" id="bi-1" onclick="navTo('s-makeup',1)">
+      <div class="bi-icon">💄</div>
+      <div class="bi-label" data-fr="Makeup" data-en="Makeup">Makeup</div>
+    </div>
+    <div class="bi" id="bi-2" onclick="navTo('s-clothing',2)">
+      <div class="bi-icon">👗</div>
+      <div class="bi-label" data-fr="Vêtements" data-en="Clothes">Vêtements</div>
+    </div>
+    <div class="bi" id="bi-3" onclick="navTo('s-cargo',3)">
+      <div class="bi-icon">📦</div>
+      <div class="bi-label" data-fr="Cargo" data-en="Cargo">Cargo</div>
+    </div>
+    <div class="bi" id="bi-4" style="position:relative;" onclick="navTo('s-cart',4)">
+      <div class="bi-icon">🛒</div>
+      <div class="bi-label" data-fr="Panier" data-en="Cart">Panier</div>
+      <div class="bi-badge" id="cart-badge" style="display:none;">0</div>
+    </div>
+  </div>
+
+</div><!-- /phone -->
+</div><!-- /phone-wrap -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──
+let lang = 'fr';
+let cart = [];
+let toastTimer;
+
+// ── Navigation ──
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('active'); el.scrollTop = 0; }
+}
+
+function navTo(id, idx) {
+  goScreen(id);
+  document.querySelectorAll('.bi').forEach((b,i) => b.classList.toggle('active', i === idx));
+}
+
+// ── Language ──
+function setLang(l, btn) {
+  lang = l;
+  document.getElementById('ltb-fr').classList.toggle('active', l === 'fr');
+  document.getElementById('ltb-en').classList.toggle('active', l === 'en');
+  applyLang();
+}
+
+function applyLang() {
+  document.querySelectorAll('[data-fr]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (!val) return;
+    if (el.tagName === 'INPUT') el.placeholder = val;
+    else el.textContent = val;
+  });
+  renderCart();
+}
+
+
+// ── Accordion ──
+function toggleSub(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  // close all in same parent
+  const parent = header.closest('.cat-panel');
+  if (parent) {
+    parent.querySelectorAll('.sub-header.open').forEach(h => {
+      h.classList.remove('open');
+      h.nextElementSibling.classList.remove('open');
+    });
+  }
+  if (!isOpen) {
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+// ── Cart ──
+function addToCart(btn, name, price, icon) {
+  btn.textContent = '✓';
+  btn.classList.add('added');
+  setTimeout(() => { btn.textContent = '+'; btn.classList.remove('added'); }, 1200);
+
+  const existing = cart.find(i => i.name === name);
+  if (existing) { existing.qty++; }
+  else { cart.push({ name, price, icon, qty: 1 }); }
+
+  updateCartBadge();
+  showToast((lang === 'fr' ? '🛒 Ajouté : ' : '🛒 Added: ') + name);
+}
+
+function clearCart() {
+  cart = [];
+  updateCartBadge();
+  renderCart();
+  showToast(lang === 'fr' ? '🗑️ Panier vidé' : '🗑️ Cart cleared');
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  updateCartBadge();
+  renderCart();
+}
+
+function updateCartBadge() {
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function renderCart() {
+  const empty = document.getElementById('cart-empty-state');
+  const wrap  = document.getElementById('cart-items-wrap');
+  const sumWrap = document.getElementById('cart-summary-wrap');
+  const countLabel = document.getElementById('cart-count-label');
+
+  if (cart.length === 0) {
+    empty.style.display = 'flex';
+    wrap.style.display  = 'none';
+    sumWrap.style.display = 'none';
+    countLabel.textContent = lang === 'fr' ? '0 article' : '0 item';
+    return;
+  }
+
+  empty.style.display = 'none';
+  wrap.style.display  = 'flex';
+  sumWrap.style.display = 'block';
+
+  const n = cart.length;
+  countLabel.textContent = lang === 'fr'
+    ? `${n} article${n > 1 ? 's' : ''}`
+    : `${n} item${n > 1 ? 's' : ''}`;
+
+  wrap.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <div class="ci-img bg-a" style="font-size:22px;">${item.icon}</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-meta">${lang === 'fr' ? 'Qté' : 'Qty'}: ${item.qty}</div>
+      </div>
+      <div class="ci-price">${item.price}</div>
+      <div class="ci-del" onclick="removeFromCart(${i})">✕</div>
+    </div>
+  `).join('');
+
+  // Calculate total (extract number from price string like €99)
+  let total = 0;
+  cart.forEach(item => {
+    const num = parseInt(item.price.replace(/[^0-9]/g, '')) * item.qty;
+    total += isNaN(num) ? 0 : num;
+  });
+
+  document.getElementById('cart-subtotal').textContent = '€' + total.toLocaleString('fr-FR');
+  document.getElementById('cart-total').textContent    = '€' + total.toLocaleString('fr-FR');
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── Init ──
+applyLang();
+</script>
+</body>
+</html>
